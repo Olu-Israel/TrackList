@@ -5,7 +5,8 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) => {
+//Getting request for all Todos
+app.get('/todos', (req, res) => {
   res.send('Welcome to the server!');
 });
 

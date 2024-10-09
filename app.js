@@ -7,17 +7,27 @@ const port = 3000;
 
 app.use(express.json());
 
-app.get('/todos', (req, res) => {
-  fs.readFile(`${__dirname}/data/todo.json`, (err, data) => {
-    if (err) {
-      return res.status(500).json({ message: 'Error reading data from file' });
-    }
-  });
+//Reading Files
+const data = fs.readFileSync(`${__dirname}/data/todo.json`, 'utf8');
 
+//Getting all Todos from JSON file and sending it as response
+app.get('/todos', (req, res) => {
   res.status(200).json({
     status: 'Success',
     data: JSON.parse(data),
   });
+});
+
+//Creating a new Todo and adding it to JSON file
+app.post('/todos', (req, res) => {
+  const newTodo = req.body;
+  console.log(newTodo);
+
+  fs.writeFile(
+    `${__dirname}/data/todo.json`,
+    JSON.stringify(newTodo),
+    (err) => {}
+  );
 });
 
 app.listen(port, () => {

@@ -17,9 +17,7 @@ app.get('/todos', (req, res) => {
   });
 });
 
-app.post('/todos', (req, res) => {
-  const newTodo = Object.assign();
-});
+app.post('/todos', (req, res) => {});
 
 //Listening to port
 app.listen(port, () => {

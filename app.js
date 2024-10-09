@@ -1,25 +1,25 @@
-//Externam Modules
+//Required Modules
 const express = require('express');
+const app = express();
 const fs = require('fs');
 
-const app = express();
 const port = 3000;
 
 app.use(express.json());
 
-const data = fs.readFileSync(`${__dirname}/data/todo.json`, 'utf8');
-
-//Getting request for all Todos
 app.get('/todos', (req, res) => {
+  fs.readFile(`${__dirname}/data/todo.json`, (err, data) => {
+    if (err) {
+      return res.status(500).json({ message: 'Error reading data from file' });
+    }
+  });
+
   res.status(200).json({
     status: 'Success',
     data: JSON.parse(data),
   });
 });
 
-app.post('/todos', (req, res) => {});
-
-//Listening to port
 app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
